@@ -1,4 +1,4 @@
-const tags = Array.from({ length: 99 }, () => "#blah");
+const tags = ["music","sports","intrigue","art","weather","power","gossip"];
 console.log(tags)
 let tallyCount = 0; // Initialize tally count
 
@@ -12,29 +12,27 @@ function loadArticles(data) {
     }
 
     data.forEach((article, i) => {
-        const articleLink = document.createElement('a');
-        articleLink.href = `article.html?timestamp=` + article.timestamp; // Link to the article page
-        articleLink.className = 'article-preview'; // Add the class to apply styles
-
-        const articleTitle = document.createElement('div');
-        articleTitle.className = 'article-title';
-        articleTitle.textContent = article.title;
-
-        const articleSummary = document.createElement('p');
-        articleSummary.className = 'article-summary';
-        articleSummary.textContent = article.summary;
-
-        // Append title directly to the link
-        articleLink.appendChild(articleTitle);
-        if (i===0) {
+		const articleGroup = document.createElement('div');
+		articleGroup.className = 'article-group';
+		
+        const articleTitleLink = document.createElement('a');
+        articleTitleLink.href = `article.html?timestamp=` + article.timestamp; // Link to the article page
+        articleTitleLink.className = 'article-title'; // Add the class to apply styles
+		articleTitleLink.textContent = article.title;
+		
+        // Append title link to the article group
+        articleGroup.appendChild(articleTitleLink);
+		
+        if (i === 0) {
             const articleContent = document.createElement('p');
             articleContent.className = 'article-content';
-            articleContent.textContent = article.content; // Display the content
-            articleLink.appendChild(articleContent);
-        }else{
-            articleLink.appendChild(articleSummary);
+            articleContent.textContent = article.content;
+            articleGroup.appendChild(articleContent);
+        } else {
+            articleGroup.appendChild(articleTitleLink);
         }
-        container.appendChild(articleLink);
+		
+        container.appendChild(articleGroup);
     });
 }
 
@@ -98,7 +96,7 @@ function addTallyMark(tallyCount) {
 
 document.addEventListener('DOMContentLoaded', () => {
     initTags();
-    for (let i = 0; i < 451; i++) {
+    for (let i = 0; i < 999; i++) {
         addTallyMark(i+1);
     }    
 });

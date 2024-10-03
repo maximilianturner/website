@@ -4,49 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Article Details</title>
-    <style>
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            width: 50%;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #333;
-        }
-        .meta {
-            color: #999;
-            font-size: 0.9em;
-            margin-bottom: 20px;
-        }
-        .content {
-            color: #555;
-            line-height: 1.6em;
-        }
-        a, .back-button {
-            color: #333;
-            text-decoration: none;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #333;
-            color: #fff;
-            margin-top: 20px;
-            cursor: pointer;
-            display: inline-block;
-        }
-        a:hover, .back-button:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
     <script>
         // Callback function for JSONP to load the article data
         function loadArticleData(articles) {
@@ -92,12 +50,18 @@
     </script>
 </head>
 <body>
-    <div class="container" id="articleContainer">
+    <div class="articles-column" id="articleContainer">
         <h1 id="articleTitle">Loading...</h1>
-        <div class="meta">By <span id="articleAuthor"></span></div>
+        <div class="meta">
+			By <span id="articleAuthor"></span>
+		</div>
+		<br><br>
         <div class="content" id="articleContent">Please wait, loading article...</div>
         <!-- Back Button -->
-        <button class="back-button" onclick="goBack()">Back to Articles</button>
+		<br><br>
+        <button class="back-button" onclick="goBack()" style="text-align: left;">
+			&#8592; Return Home
+		</button>
     </div>
 </body>
 </html>

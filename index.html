@@ -3,30 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article Previews</title>
+    <title>Ten Today</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="sidebar">
-        <div class="search-bar">
-            <input type="text" placeholder="Search">
-        </div>
-        <div id="tags-container" class="tags">
-            <!-- Tags will be dynamically added here -->
-        </div>
-    </div>
-    <div class="container">
-        <h1 id="header">Day 0</h1> <!-- Updated header -->
-        <div id="article-container">
-            <p>Loading articles...</p>
-        </div>
-    </div>
-    <div class="tally-column">
-        <a href="submit.html" class="submit-button">Submit Your Article</a>
-        <div id="tally-container">
-            <!-- Tally marks will be dynamically added here -->
-        </div>
-    </div>
+	<div class="homepage-container">
+	    <div class="sidebar">
+	        <div class="search-bar">
+	            <input type="text" placeholder="search...">
+	        </div>
+	        <div id="tags-container" class="tags">
+	            <!-- Tags will be dynamically added here -->
+	        </div>
+	    </div>
+	    <div class="articles-column">
+	        <h1 id="header">Day 0</h1>
+	        <div id="article-container">
+	            <p>Loading articles...</p>
+	        </div>
+	    </div>
+	    <div class="tally-column">
+	        <a href="submit.html" class="submit-button">Submit Your Article</a>
+			<br><br>
+	        <div id="tally-container">
+	            <!-- Tally marks will be dynamically added here -->
+	        </div>
+	    </div>
+	</div>
     <script src="homepage.js"></script>
 </body>
 </html>

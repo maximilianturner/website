@@ -38,6 +38,22 @@ function loadArticles(data) {
     });
 }
 
+function fetchArticles() {
+    fetch('articles.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Assuming you're returning HTML from articles.php
+        })
+        .then(data => {
+            document.getElementById('articles-container').innerHTML = data; // Populate the articles section
+        })
+        .catch(error => {
+            console.error('Error fetching articles:', error);
+        });
+}
+
 function loadJsonp(url) {
     const script = document.createElement('script');
     script.src = url;
@@ -105,3 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const scriptUrl = 'https://script.google.com/macros/s/AKfycbwEDXlCUE759nSrM-CXwvpPY44T1dr9AB3H09GjF6plK8s9lBX14O4WZJu-rppo69yS/exec?callback=loadArticles';
 loadJsonp(scriptUrl);
+
+// Fetch articles on page load
+window.onload = fetchArticles;

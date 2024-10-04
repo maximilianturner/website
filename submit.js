@@ -36,7 +36,7 @@ function removeBlock(btn) {
 }
 
 document.getElementById('article-form').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent form submission
+    event.preventDefault(); // Prevent form submission and page refresh
 
     const formData = new FormData(this);
     const articleData = [];
@@ -45,17 +45,46 @@ document.getElementById('article-form').addEventListener('submit', function (eve
         if (key === "textBlocks[]") {
             articleData.push(["text", value]); // Add text blocks to the array
         } else if (key === "mediaAssets[]") {
-            articleData.push(["media", value.name]); // Add media file names to the array
+            articleData.push(["media", value.name]); // Store media file names
         }
     }
 
-    // Convert to JSON and log it
-    const jsonOutput = JSON.stringify(articleData);
-    console.log(jsonOutput); // Log the output
+    // Send the data to submit.php
+    fetch('submit.php', {
+        method: 'POST',
+        body: JSON.stringify(articleData),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data); // Log the response from the server
 
-    // // Store a success message in localStorage
-    // localStorage.setItem("submissionMessage", "Your article has been submitted successfully!");
+        // Show the modal with a success message
+        showModal("Your article has been submitted successfully!");
 
-    // Redirect to homepage
-    window.location.href = "index.html"; // Modify to your homepage URL
+        // Do not redirect immediately, allow user interaction
+    })
+    .catch(error => console.error('Error submitting article:', error));
 });
+
+// Function to show the modal
+function showModal(message) {
+    document.getElementById('modalMessage').innerText = message; // Set the message
+    document.getElementById('submissionModal').style.display = 'block'; // Show the modal
+}
+
+// Close the modal
+document.getElementById('closeModal').onclick = function() {
+    document.getElementById('submissionModal').style.display = 'none'; // Hide the modal
+    window.location.href = "index.html"; // Redirect after closing
+}
+
+// Close the modal when clicking outside of it
+window.onclick = function(event) {
+    if (event.target === document.getElementById('submissionModal')) {
+        document.getElementById('submissionModal').style.display = 'none'; // Hide the modal
+        window.location.href = "index.html"; // Redirect after closing
+    }
+}

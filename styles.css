@@ -1,14 +1,25 @@
+:root {
+	--homepage-outer-margin: 15%;
+	--tag-padding: 5px;
+	--header-size: 1.5em;
+}
+
 
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
     display: flex;
-    height: 100vh; /* Full height for vertical alignment */
+    height: 100vh;
 }
 
-.container {
+.homepage-container {
+	display: flex;
+	padding-right: var(--homepage-outer-margin);
+	padding-left: var(--homepage-outer-margin);
+}
+
+.articles-column {
     display: flex; /* Allow children to use flex properties */
     flex-direction: column; /* Ensure the header and articles stack vertically */
     width: 60%; /* Keep this width or adjust as needed */
@@ -18,17 +29,29 @@ body {
 }
 
 h1 {
-    color: #333;
     margin-bottom: 10px;
-    font-size: 4em;
-    text-align: left; /* Keep the header left-aligned */
+    font-size: var(--header-size);
+    text-align: left;
+	color: #000;
 }
 
-h2 {
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    text-align: left; /* Keep the article section title left-aligned */
+.article-group {
+}
+
+
+.article-title {
+    font-size: var(--header-size);
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+.article-title:hover {
+	text-decoration: underline;
+}
+
+.article-content {
+    font-size: 1em;
+    text-decoration: none;
+	color: #000;
 }
 
 .article-preview {
@@ -40,36 +63,15 @@ h2 {
 .article-preview a {
     display: block;
     text-decoration: none;
+	color: blue;
 }
-
-.article-title {
-    font-size: 1.5em;
-    color: #333;
-    margin-bottom: 10px;
-    text-decoration: none;
-}
-
-.article-summary {
-    font-size: 1em;
-    color: #333;
-    text-decoration: none;
-}
-
-.article-content {
-    font-size: 1em;
-    color: #333;
-    text-decoration: none;
-}
-
-
 
 
 .sidebar {
-    width: 10%;
-    padding: 20px;
-    display: flex;
+    width: 7.5%;
+    display: inline-block;
     flex-direction: column;
-    margin-top: 35px;
+	position: fixed;
 }
 
 .search-bar {
@@ -77,10 +79,22 @@ h2 {
 }
 
 .search-bar input[type="text"] {
-    width: 80%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    width: 90%;
+}
+
+/* change appearance of search bar */
+input {
+    border: 0;
+    background: transparent;
+}
+
+/* change appearance of button */
+button {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+	color: #0000ff;
 }
 
 .tags {
@@ -90,10 +104,8 @@ h2 {
 }
 
 .tag {
-    display: inline-block; /* Allows the element to respect width and margins */
-    color: #333;
-    padding: 5px 5px; /* Add some padding around the tags */
-    margin: 5px; /* Margin between tags */
+    display: inline-block;
+    padding: 5px 5px;
     cursor: pointer;
     text-decoration: none;
 }
@@ -103,12 +115,10 @@ h2 {
 }
 
 
-
-
 .submit-button {
     margin-top: 10px;
     text-decoration: none;
-    color: #333;
+    color: #000;
 }
 
 .content-block {
@@ -138,19 +148,18 @@ button {
 }
 
 .tally-column {
-    width: 30%; /* Adjust width as needed */
+    width: 15%; /* Adjust width as needed */
     margin-top: 75px;
     display: flex;
     flex-direction: column;
-    align-items: left; /* Center the tally marks */
+    align-items: center; /* Center the tally marks */
     justify-content: left; /* Center content vertically */
 }
 
 #tally-container {
     display: flex;
     flex-wrap: wrap; /* Allow flex items to wrap into rows */
-    justify-content: left; /* Center items in each row */
-    width: 45%; /* Make sure it takes full width */
+    justify-content: center; /* Center items in each row */
 }
 
 .tally-link {
@@ -160,10 +169,10 @@ button {
 .tally-mark {
     display: inline-block; /* Display tally marks inline */
     cursor: pointer; /* Change cursor to pointer */
-    width: 10px; /* Width of the block line */
-    height: 40px; /* Height of the block line */
-    background-color: #333; /* Color of the tally mark */
-    margin: 2px; /* Space between tally marks */
+    width: 3px; /* Width of the block line */
+    height: 30px; /* Height of the block line */
+    background-color: #000; /* Color of the tally mark */
+    margin: 1.5px; /* Space between tally marks */
 }
 
 .blank-space {

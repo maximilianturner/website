@@ -35,6 +35,11 @@ function removeBlock(btn) {
     btn.parentElement.remove(); // Remove the respective block
 }
 
+// Function to go back to index.html
+function goBack() {
+    window.location.href = 'index.html';
+}
+
 document.getElementById('article-form').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent form submission and page refresh
 

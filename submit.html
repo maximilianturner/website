@@ -4,24 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submission Form</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.0">
 </head>
 <body>
     <div class="homepage-container" style="margin-top: 100px">
-        <form id="article-form">
-            <div id="content-container">
+        <form id="article-form" method="POST" action="submit.php">
+            <label for="title">Article Title:</label> <!-- Text box for article title -->
+            <input type="text" id="title" name="title" required><br><br>
+
+            <div id="content-container"> <!-- Existing content blocks will go here -->
             </div>
+            
             <select id="content-type">
                 <option value="text">Text Block</option>
                 <option value="media">Media Asset</option>
             </select>
-			<button type="button" onclick="addContent()" class="button"> add</button>
-            <br><br><br><br>
+            <button type="button" onclick="addContent()" class="button">Add</button>
+            <br><br>
+            
             <button type="submit">Submit Article &#8982;</button>
-			<br><br>
-	        <button class="back-button" onclick="goBack()">
-				&#8592; Return Home
-			</button>
+            <br><br>
+            <button type="button" class="back-button" onclick="goBack()">
+                &#8592; Return Home
+            </button>
         </form>
     </div>
 
@@ -33,6 +38,6 @@
         </div>
     </div>
 
-    <script src="submit.js" defer></script>
+    <script src="submit.js?v=1.0" defer></script>
 </body>
 </html>

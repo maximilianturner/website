@@ -1,0 +1,12 @@
+[
+    {
+        "title": "Article 1",
+        "content": "This is the content of article 1.",
+        "timestamp": "2024-05-01T12:00:00Z"
+    },
+    {
+        "title": "Article 2",
+        "content": "This is the content of article 2.",
+        "timestamp": "2024-05-02T12:00:00Z"
+    }
+]

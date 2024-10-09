@@ -40,38 +40,34 @@ function goBack() {
     window.location.href = 'index.html';
 }
 
+let isSubmitting = false; // Flag to control submission
+
 document.getElementById('article-form').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent form submission and page refresh
-
+    event.preventDefault();
+    if (isSubmitting) return; // Prevent further submissions
+    isSubmitting = true; // Set flag to indicate submission in progress
     const formData = new FormData(this);
-    const articleData = [];
-
-    for (let [key, value] of formData.entries()) {
-        if (key === "textBlocks[]") {
-            articleData.push(["text", value]); // Add text blocks to the array
-        } else if (key === "mediaAssets[]") {
-            articleData.push(["media", value.name]); // Store media file names
-        }
-    }
-
-    // Send the data to submit.php
+    // Gather form data here
     fetch('submit.php', {
         method: 'POST',
-        body: JSON.stringify(articleData),
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        body: formData // No need to stringify, FormData handles it
     })
-    .then(response => response.text())
+    .then(response => {
+        return response.json(); // Parse JSON response
+    })
     .then(data => {
-        console.log(data); // Log the response from the server
-
-        // Show the modal with a success message
-        showModal("Your article has been submitted successfully!");
-
-        // Do not redirect immediately, allow user interaction
+        // Handle success or error messages here
+        if (data.success) {
+            showModal("Your article has been submitted successfully!");
+        } else {
+            showModal(data.error || "An error occurred while submitting your article.");
+        }
+        isSubmitting = false; // Reset the flag
     })
-    .catch(error => console.error('Error submitting article:', error));
+    .catch(error => {
+        console.error('Error submitting article:', error);
+        isSubmitting = false; // Reset flag on error
+    });
 });
 
 // Function to show the modal

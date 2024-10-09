@@ -2,6 +2,7 @@
 	--homepage-outer-margin: 15%;
 	--tag-padding: 5px;
 	--header-size: 1.5em;
+    --body-font-size: 1em;
 }
 
 
@@ -9,77 +10,90 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
     height: 100vh;
 }
 
 .homepage-container {
-	display: flex;
-	padding-right: var(--homepage-outer-margin);
-	padding-left: var(--homepage-outer-margin);
+    display: flex; /* Ensures flexbox layout */
+    padding-right: var(--homepage-outer-margin);
+    padding-left: var(--homepage-outer-margin);
+    justify-content: space-between; /* Distributes space between columns */
 }
 
+
+.vertical-align-container {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Horizontally center if necessary */
+    height: 100%; /* Ensure it takes full height */
+}
+
+
+
 .articles-column {
-    display: flex; /* Allow children to use flex properties */
-    flex-direction: column; /* Ensure the header and articles stack vertically */
-    width: 60%; /* Keep this width or adjust as needed */
+    display: flex;
+    flex-direction: column;
+    width: 60%; /* Fixed width to prevent shifting */
+    min-height: 100vh; /* Set a minimum height for the column */
     padding: 20px;
     box-sizing: border-box;
     margin: 0 auto; /* Center the container horizontally */
+}
+
+
+#article-container {
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Stack children vertically */
+    width: 100%; /* Use the full width of the parent */
+    margin-top: 10px; /* Space above the article container */
+    padding: 10px; /* Padding inside the container */
+    box-sizing: border-box; /* Ensure padding is included in width calculation */
 }
 
 h1 {
     margin-bottom: 10px;
     font-size: var(--header-size);
     text-align: left;
-	color: #000;
+	color: black;
 }
-
-.article-group {
-}
-
 
 .article-title {
-    font-size: var(--header-size);
+    font-size: var(--body-font-size);
     margin-bottom: 10px;
     text-decoration: none;
+    color: black;
 }
 .article-title:hover {
 	text-decoration: underline;
 }
 
 .article-content {
-    font-size: 1em;
+    font-size: var(--body-font-size);
     text-decoration: none;
-	color: #000;
+	color: black;
 }
 
-.article-preview {
-    margin-bottom: 20px;
-    padding: 15px;
-    text-decoration: none;
-}
 
-.article-preview a {
-    display: block;
-    text-decoration: none;
-	color: blue;
-}
+
+
 
 
 .sidebar {
-    width: 7.5%;
+    width: 7.5%; /* Keeping this fixed */
     display: inline-block;
     flex-direction: column;
-	position: fixed;
+    margin-top: 35px;
+    position: fixed; /* Sidebar fixed position */
 }
 
 .search-bar {
-    margin-top: 20px;
+    margin-top: 55px;
+    margin-bottom: 10px;
 }
 
 .search-bar input[type="text"] {
     width: 90%;
+    font-size: var(--body-font-size);
 }
 
 /* change appearance of search bar */
@@ -94,10 +108,10 @@ button {
     padding: 0;
     margin: 0;
     background: transparent;
-	color: #0000ff;
+	color: black;
 }
 
-.tags {
+.tags-container {
     margin-bottom: 20px;
     display: flex;
     flex-wrap: wrap; /* Allow the tags to wrap to the next line */
@@ -114,11 +128,37 @@ button {
     text-decoration: underline; /* Underline on hover */
 }
 
+.tag-tree {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap; /* Allow the tags to wrap to the next line */
+}
 
-.submit-button {
-    margin-top: 10px;
+.tree-prefix {
+    display: inline-block;
+	font-family: monospace, monospace;
     text-decoration: none;
-    color: #000;
+}
+
+.tree-label {
+	font-family: inherit;
+}
+
+.tree-label:hover {
+	cursor: pointer;
+}
+
+
+
+/* Style for the article title input */
+#title {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside the text box */
+    font-size: 1.2em; /* Font size */
+    border: 1px solid black; /* Black outline */
+    border-radius: 5px; /* Rounded corners */
+    transition: border-color 0.3s; /* Smooth transition for focus effect */
+    outline: none; /* Remove default outline */
 }
 
 .content-block {
@@ -135,7 +175,7 @@ textarea, input[type="file"] {
 /* Additional styles for the button */
 .remove-btn {
     margin-left: 10px; /* Add some space between the input and the button */
-    background: #333;
+    background: black;
     color: white;
     border: none;
     border-radius: 5px;
@@ -147,41 +187,59 @@ button {
     margin-top: 10px;
 }
 
+
+.login-button {
+    margin-bottom: 10px;
+    margin-right: 15px;
+    font-size: var(--body-font-size);
+    text-decoration: none;
+    color: black;
+    align-items: right;
+    align-self: right;
+    align-content: right;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
 .tally-column {
-    width: 15%; /* Adjust width as needed */
-    margin-top: 75px;
+    width: 15%; /* Keeping this fixed */
+    margin-top: 85px; /* Align this with the articles column */
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center the tally marks */
-    justify-content: left; /* Center content vertically */
+    align-items: flex-end; /* Center the tally marks */
+}
+
+/* Optional: to ensure the tally column stays flush with the right side of the browser */
+.tally-column {
+    margin-left: auto; /* Push this column to the right */
 }
 
 #tally-container {
     display: flex;
-    flex-wrap: wrap; /* Allow flex items to wrap into rows */
-    justify-content: center; /* Center items in each row */
-}
-
-.tally-link {
-    text-decoration: none; /* Remove underline from links */
+    flex-wrap: wrap; /* Allows contents to wrap to the next line */
+    width: 270px; /* Adjust width to fit 25 tally marks */
+    margin: 10px; /* Adds spacing around the container */
 }
 
 .tally-mark {
-    display: inline-block; /* Display tally marks inline */
-    cursor: pointer; /* Change cursor to pointer */
-    width: 3px; /* Width of the block line */
-    height: 30px; /* Height of the block line */
-    background-color: #000; /* Color of the tally mark */
-    margin: 1.5px; /* Space between tally marks */
+    display: inline-block;
+    width: 5px; /* Width of each tally mark */
+    height: 20px; /* Height of each tally mark */
+    background-color: black; /* Color of the tally mark */
+    margin: 2px; /* Space between tally marks */
 }
 
 .blank-space {
-    width: 10px;
-    height: 20px; /* Adjust the height as needed */
+    display: inline-block;
+    width: 10px; /* Width of blank space */
+    height: 20px; /* Match height to tally marks */
 }
 
 .tally-row {
-    clear: both;  /* CSS property to ensure the row breaks correctly */
+    width: 100%; /* Ensure new rows span the full width */
 }
 
 
@@ -197,7 +255,7 @@ button {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: black; /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
@@ -212,7 +270,7 @@ button {
 .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: var(--body-font-size);
     font-weight: bold;
 }
 

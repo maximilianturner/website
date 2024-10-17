@@ -1,13 +1,23 @@
+/* General */
+
 :root {
-	--homepage-outer-margin: 15%;
+	--homepage-outer-margin: 10%;
 	--tag-padding: 5px;
-	--header-size: 1.5em;
+    --title-size: 4em;
     --body-font-size: 1em;
+	--tally-size: 30px;
+	--tally-spacing: 2px;
+	--tally-row-spacing: 5px;
 }
 
+@font-face {
+    font-family: 'BertholdAkzidenzGroteskBoldExtended';
+    src: url('./fonts/BertholdAkzidenzGroteskBoldExtended.otf') format('opentype');
+    font-weight: normal; /* Adjust as needed */
+    font-style: normal; /* Adjust as needed */
+}
 
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -17,50 +27,74 @@ body {
     display: flex; /* Ensures flexbox layout */
     padding-right: var(--homepage-outer-margin);
     padding-left: var(--homepage-outer-margin);
-    justify-content: space-between; /* Distributes space between columns */
+    justify-content: space-between;  
 }
 
-
-.vertical-align-container {
+.sidebar, .articles-column, .tally-column {
     display: flex;
-    align-items: center; /* Center items vertically */
-    justify-content: center; /* Horizontally center if necessary */
-    height: 100%; /* Ensure it takes full height */
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
+/* Header */
 
+h1 {
+    font-size: var(--title-size);
+    text-align: left;
+	color: black;
+}
+
+.header-container {
+    font-family: 'BertholdAkzidenzGroteskBoldExtended', serif; /* Use your uploaded font */
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Vertically align items */
+    width: 100%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-right: var(--homepage-outer-margin);
+    padding-left: var(--homepage-outer-margin);
+    box-sizing: border-box;
+}
+
+#header {
+    margin: 0;
+}
+
+.header-info {
+    text-align: right; /* Align text to the right */
+}
+
+.header-info div {
+    font-size: 1.6em; /* Slightly smaller text */
+}
+
+/* Articles Column */
 
 .articles-column {
     display: flex;
     flex-direction: column;
     width: 60%; /* Fixed width to prevent shifting */
     min-height: 100vh; /* Set a minimum height for the column */
-    padding: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
     box-sizing: border-box;
-    margin: 0 auto; /* Center the container horizontally */
+    justify-content: flex-start;
 }
-
 
 #article-container {
     display: flex; /* Flexbox layout */
     flex-direction: column; /* Stack children vertically */
     width: 100%; /* Use the full width of the parent */
-    margin-top: 10px; /* Space above the article container */
-    padding: 10px; /* Padding inside the container */
     box-sizing: border-box; /* Ensure padding is included in width calculation */
-}
-
-h1 {
-    margin-bottom: 10px;
-    font-size: var(--header-size);
-    text-align: left;
-	color: black;
 }
 
 .article-title {
     font-size: var(--body-font-size);
+    margin-top: 0;
     margin-bottom: 10px;
     text-decoration: none;
+    cursor: pointer;
     color: black;
 }
 .article-title:hover {
@@ -68,47 +102,35 @@ h1 {
 }
 
 .article-content {
+    display: block;
     font-size: var(--body-font-size);
     text-decoration: none;
 	color: black;
 }
 
-
-
-
-
+/* Search/Tags Column */
 
 .sidebar {
-    width: 7.5%; /* Keeping this fixed */
-    display: inline-block;
+    width: 20%; /* Keeping this fixed */
+    display: flex;
     flex-direction: column;
-    margin-top: 35px;
-    position: fixed; /* Sidebar fixed position */
+    justify-content: flex-start;
 }
 
 .search-bar {
-    margin-top: 55px;
     margin-bottom: 10px;
 }
 
 .search-bar input[type="text"] {
     width: 90%;
     font-size: var(--body-font-size);
+    font-family: serif;
 }
 
 /* change appearance of search bar */
 input {
     border: 0;
     background: transparent;
-}
-
-/* change appearance of button */
-button {
-    border: 0;
-    padding: 0;
-    margin: 0;
-    background: transparent;
-	color: black;
 }
 
 .tags-container {
@@ -123,7 +145,6 @@ button {
     cursor: pointer;
     text-decoration: none;
 }
-
 .tag:hover {
     text-decoration: underline; /* Underline on hover */
 }
@@ -148,9 +169,97 @@ button {
 	cursor: pointer;
 }
 
+/* Tally Column */
+
+.login-button {
+    margin-bottom: 10px;
+    font-size: var(--body-font-size);
+    font-family: serif;
+    text-decoration: none;
+    color: gray;
+    align-items: right;
+    align-self: right;
+    align-content: right;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+.tally-column {
+    width: 20%; /* Keeping this fixed */
+    padding: 0; /* Remove extra padding */
+    margin: 0; /* Remove any margins */
+    box-sizing: border-box; /* Ensure padding doesn’t increase width */
+    flex-shrink: 0; /* Prevent it from shrinking or affecting other columns */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Center the tally marks */
+	margin-left: auto;
+}
 
 
-/* Style for the article title input */
+.tally-mark {
+	display: flex;
+}
+
+
+img.tally-mark {
+    width: auto; /* Set a fixed width for the tally marks */
+    height: var(--tally-size); /* Maintain aspect ratio */
+    margin: var(--tally-spacing); /* Add some space around the marks */
+}
+
+.tally-spacer {
+    display: inline-block;
+    width: 10px; /* Adjust the width to control spacing between groups */
+}
+
+.tally-row {
+	width: 100%;
+	display: flex;
+	margin-bottom: 5px;
+}
+
+/* Modal */
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: black;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: var(--body-font-size);
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Submission Page */
+
 #title {
     width: 100%; /* Full width */
     padding: 10px; /* Padding inside the text box */
@@ -183,100 +292,30 @@ textarea, input[type="file"] {
     cursor: pointer;
 }
 
-button {
+/* button {
     margin-top: 10px;
+} */
+
+/* Misc. */
+
+button {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+	color: black;
 }
 
-
-.login-button {
-    margin-bottom: 10px;
-    margin-right: 15px;
-    font-size: var(--body-font-size);
-    text-decoration: none;
-    color: black;
-    align-items: right;
-    align-self: right;
-    align-content: right;
-    cursor: pointer;
-}
-
-.login-button:hover {
-    text-decoration: underline; /* Underline on hover */
-}
-
-.tally-column {
-    width: 15%; /* Keeping this fixed */
-    margin-top: 85px; /* Align this with the articles column */
+.video-container {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* Center the tally marks */
+    justify-content: center; /* Centers the content horizontally */
+    align-items: center; /* Optional: Centers content vertically */
+    width: 100%; /* Full width of the container */
+    max-width: 100%; /* Allows responsive behavior */
+    padding: 20px; /* Optional: Add padding */
+    box-sizing: border-box;
 }
 
-/* Optional: to ensure the tally column stays flush with the right side of the browser */
-.tally-column {
-    margin-left: auto; /* Push this column to the right */
-}
-
-#tally-container {
-    display: flex;
-    flex-wrap: wrap; /* Allows contents to wrap to the next line */
-    width: 270px; /* Adjust width to fit 25 tally marks */
-    margin: 10px; /* Adds spacing around the container */
-}
-
-.tally-mark {
-    display: inline-block;
-    width: 5px; /* Width of each tally mark */
-    height: 20px; /* Height of each tally mark */
-    background-color: black; /* Color of the tally mark */
-    margin: 2px; /* Space between tally marks */
-}
-
-.blank-space {
-    display: inline-block;
-    width: 10px; /* Width of blank space */
-    height: 20px; /* Match height to tally marks */
-}
-
-.tally-row {
-    width: 100%; /* Ensure new rows span the full width */
-}
-
-
-
-
-/* Modal styles */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: black; /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: var(--body-font-size);
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+.video-container iframe {
+    max-width: 100%;
 }

@@ -1,34 +1,45 @@
-let textBlockCount = 0;
-let mediaBlockCount = 0;
+let contentList = [];
 
 function addContent() {
     const contentType = document.getElementById('content-type').value; 
     const contentContainer = document.getElementById('content-container');
 
-    let contentBlock;
+    let contentElement, contentData;
 
     if (contentType === "text") {
-        textBlockCount++;
-        contentBlock = document.createElement('div');
-        contentBlock.className = 'content-block';
-        contentBlock.innerHTML = `
-            <label for="text${textBlockCount}">Text Block:</label>
-            <textarea id="text${textBlockCount}" name="textBlocks[]" rows="4" cols="50" required></textarea>
-            <button type="button" class="remove-btn" onclick="removeBlock(this)">Remove</button>
-        `;
+        const textArea = document.createElement('textarea');
+        textArea.placeholder = 'Enter text here';
+        contentElement = document.createElement('div');
+        contentElement.appendChild(textArea);
+        contentData = { type: 'text', content: textArea.value };
+
+        textArea.oninput = () => {
+            contentData.content = textArea.value; // Update content data on input
+        };
+        
     } else if (contentType === "media") {
-        mediaBlockCount++;
-        contentBlock = document.createElement('div');
-        contentBlock.className = 'content-block';
-        contentBlock.innerHTML = `
-            <label for="media${mediaBlockCount}">Media Asset:</label>
-            <input type="file" id="media${mediaBlockCount}" name="mediaAssets[]" required>
-            <button type="button" class="remove-btn" onclick="removeBlock(this)">Remove</button>
-        `;
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        contentElement = document.createElement('div');
+        contentElement.appendChild(fileInput);
+        contentData = { type: 'media', content: fileInput };
+
+        fileInput.onchange = () => {
+            contentData.content = fileInput.files[0]; // Store the file
+        };
     }
 
-    // Append the newly created content block to the container
-    contentContainer.appendChild(contentBlock);
+    contentContainer.appendChild(contentElement);
+    contentList.push(contentData); // Maintain order
+
+    contentElement.className = 'content-block';
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Remove';
+    removeBtn.onclick = () => {
+        contentContainer.removeChild(contentElement);
+        contentList = contentList.filter(c => c !== contentData); // Remove from list
+    };
+    contentElement.appendChild(removeBtn);
 }
 
 function removeBlock(btn) {
@@ -42,12 +53,25 @@ function goBack() {
 
 let isSubmitting = false; // Flag to control submission
 
-document.getElementById('article-form').addEventListener('submit', function (event) {
+document.getElementById('article-form').addEventListener('submit', function(event) {
     event.preventDefault();
+
     if (isSubmitting) return; // Prevent further submissions
     isSubmitting = true; // Set flag to indicate submission in progress
-    const formData = new FormData(this);
-    // Gather form data here
+
+    const formData = new FormData();
+    formData.append('title', document.getElementById('title').value);
+    
+    contentList.forEach((content, index) => {
+        if (content.type === 'text') {
+            formData.append(`content[${index}][type]`, 'text');
+            formData.append(`content[${index}][value]`, content.content);
+        } else if (content.type === 'media' && content.content instanceof File) {
+            formData.append(`content[${index}][type]`, 'media');
+            formData.append(`content[${index}][file]`, content.content);
+        }
+    });
+
     fetch('submit.php', {
         method: 'POST',
         body: formData // No need to stringify, FormData handles it
@@ -69,6 +93,7 @@ document.getElementById('article-form').addEventListener('submit', function (eve
         isSubmitting = false; // Reset flag on error
     });
 });
+
 
 // Function to show the modal
 function showModal(message) {

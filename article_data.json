@@ -1,12 +1,74 @@
 [
     {
         "title": "Article 1",
-        "content": "This is the content of article 1.",
+        "content": [
+            {
+                "type": "text",
+                "value": "The customer is very important, the customer will be followed by the customer. No one in the lake. No football advertising tincidunts. Whole but as a pot of yeast to drink. Tomorrow some mass will be a lot of pain, so that it will be a lot of bed. Just the boat and the fear. Everyone's enthusiasm and my dignissim, the wisdom of life is pregnant. Until the drink salad does not flatter the chocolate. They live and just don't have medical treatment. Smartphones... Each and every one except poison, great protein and, free to decorate. Children are living with disease, old age and children, and they are suffering from hunger and poverty. The door of the house is placed in the house. I live the vehicles of the life just, the grief of my life is that. For the bow of the free will be the greatest pursuit of the football or the tortor."
+            }
+        ],
         "timestamp": "2024-05-01T12:00:00Z"
     },
     {
         "title": "Article 2",
-        "content": "This is the content of article 2.",
+        "content": [
+            {
+                "type": "text",
+                "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in lacus elit. Ut et neque eu augue tincidunt gravida. Integer at quam ac urna bibendum fermentum. Cras quis massa sit amet dolor aliquam facilisis ut sit amet lectus. Phasellus ac metus justo. Quisque fermentum mauris ac mi dignissim, vitae aliquet sapien gravida. Donec bibendum sem non blandit scelerisque. Vivamus et justo nec orci scelerisque tincidunt. Suspendisse potenti. Quisque et nisi venenatis, dapibus magna et, ornare libero. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis ullamcorper placerat porta. Vivamus vehicula volutpat justo, vitae luctus mi ultricies id. Nam at arcu vel libero maximus consectetur eu vel tortor."
+            }
+        ],
         "timestamp": "2024-05-02T12:00:00Z"
+    },
+    {
+        "title": "August 24, 2024",
+        "content": [
+            {
+                "type": "text",
+                "value": "On this train I met Peter, who retired from Airbus three years ago. He woke at 3:00 this morning to spend the day alone in Amsterdam, because it is beautiful, he said. He is a Bremer."
+            }
+        ],
+        "timestamp": "2024-10-06T22:08:23-05:00"
+    },
+    {
+        "title": "Erstwhile",
+        "content": [
+            {
+                "type": "media",
+                "value": ".\/uploads\/bb.jpg"
+            }
+        ],
+        "timestamp": "2024-10-06T22:48:06-05:00"
+    },
+    {
+        "title": "\u2dbc  \u33fe   \ufdfd",
+        "content": [],
+        "media": [],
+        "timestamp": "2024-10-07T21:39:15-05:00"
+    },
+    {
+        "title": "High-Yield Basket Case",
+        "content": [
+            {
+                "type": "text",
+                "value": "Text ichiban"
+            },
+            {
+                "type": "media",
+                "value": ".\/uploads\/Screenshot 2023-12-18 at 9.22.44 PM.png"
+            },
+            {
+                "type": "text",
+                "value": "I am the second text!"
+            },
+            {
+                "type": "media",
+                "value": ".\/uploads\/Screenshot 2024-05-27 at 5.04.45 PM.png"
+            },
+            {
+                "type": "text",
+                "value": "This is the third text and this one is big"
+            }
+        ],
+        "timestamp": "2024-10-12T12:16:03-05:00"
     }
 ]

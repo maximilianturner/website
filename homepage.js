@@ -1,10 +1,10 @@
-const tags = ["music","sports","intrigue","art","weather","power","gossip"];
-console.log(tags)
-let tallyCount = 0; // Initialize tally count
+const tags = ["music", "sports", "intrigue", "art", "weather", "power", "gossip"];
+console.log(tags);
+let tallyCount = 31; // Initialize tally count
 
 function loadArticles(data) {
     const container = document.getElementById('article-container');
-    container.innerHTML = ''; // Clear the container
+    container.innerHTML = ''; // Clear existing articles
 
     if (!data || data.length === 0) {
         container.innerHTML = '<p>No articles found.</p>';
@@ -14,34 +14,44 @@ function loadArticles(data) {
     data.forEach((article, i) => {
         const articleGroup = document.createElement('div');
         articleGroup.className = 'article-group';
-        
-        const articleTitleLink = document.createElement('a');
-        articleTitleLink.href = '#'; // Prevents changing the page
-        articleTitleLink.className = 'article-title';
-        articleTitleLink.textContent = article.title;
 
-        const articleContent = document.createElement('p');
-        articleContent.className = 'article-content';
-        articleContent.textContent = article.content;
+        // Create the article title
+        const articleTitle = document.createElement('h2');
+        articleTitle.className = 'article-title';
+        articleTitle.textContent = article.title;
 
-        // Initially show the content only for the first article
-        if (i === 0) {
-            articleContent.style.display = 'block'; // Show the first article's content
-        } else {
-            articleContent.style.display = 'none'; // Hide subsequent articles' content
-        }
-
-        // Toggle visibility of the article content on title click
-        articleTitleLink.onclick = (event) => {
-            event.preventDefault(); // Prevents default anchor behavior
-            const isVisible = articleContent.style.display === 'block';
-            articleContent.style.display = isVisible ? 'none' : 'block'; // Toggle visibility
+        // Toggle visibility of article content
+        articleTitle.onclick = () => {
+            const contentContainer = document.getElementById(`content-container-${i}`);
+            contentContainer.style.display = contentContainer.style.display === 'block' ? 'none' : 'block';
         };
 
-        // Append title link and content to the article group
-        articleGroup.appendChild(articleTitleLink);
-        articleGroup.appendChild(articleContent);
-        
+        // Create a container for content and media
+        const contentContainer = document.createElement('div');
+        contentContainer.id = `content-container-${i}`;
+        contentContainer.style.display = i === 0 ? 'block' : 'none'; // Show the first article by default
+
+        // Append content blocks and media in order
+        article.content.forEach(contentItem => {
+            if (contentItem.type === 'text') {
+                const textBlock = document.createElement('p');
+                textBlock.textContent = contentItem.value;
+                contentContainer.appendChild(textBlock);
+            } else if (contentItem.type === 'media') {
+                const mediaElement = document.createElement('img');
+                mediaElement.src = contentItem.value;
+                mediaElement.alt = "Media uploaded with article";
+                mediaElement.style.width = "100%";
+                mediaElement.style.marginTop = "10px";
+                contentContainer.appendChild(mediaElement);
+            }
+        });
+
+        // Append title and content container to article group
+        articleGroup.appendChild(articleTitle);
+        articleGroup.appendChild(contentContainer);
+
+        // Append the article group to the main container
         container.appendChild(articleGroup);
     });
 }
@@ -59,11 +69,10 @@ function fetchArticles() {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            // console.log(response)
             return response.json(); // Parse JSON response
         })
         .then(data => {
-            console.log(data)
+            console.log(data);
             loadArticles(data); // Pass the data directly to loadArticles
         })
         .catch(error => {
@@ -72,7 +81,6 @@ function fetchArticles() {
             container.innerHTML = '<p>Error loading articles.</p>'; // Display error message
         });
 }
-
 
 
 
@@ -196,41 +204,97 @@ function initTagTree() {
 function addTallyMark(tallyCount) {
     const tallyContainer = document.getElementById('tally-container');
 
-    const tallyLink = document.createElement('a'); // Create an anchor tag
-    tallyLink.className = 'tally-link'; // Add a class for styling or JavaScript targeting
-    tallyLink.href = `article.html?timestamp=09242024230237`;
-    
-    // Create a tally mark
-    const tallyMark = document.createElement('div');
-    tallyMark.className = 'tally-mark';
-    tallyLink.appendChild(tallyMark); // Append the tally mark to the link
-    tallyContainer.appendChild(tallyLink); // Append the link to the tally container
-    
-    // Add a blank space after the first 5 tally marks
-    if (tallyCount % 5 === 0 && tallyCount > 0) { // After the 5th tally mark
-        const blankSpace = document.createElement('div');
-        blankSpace.className = 'blank-space'; // Class for styling
-        tallyContainer.appendChild(blankSpace);
-        if (tallyCount % 25 === 0) {
-            const rowBreak = document.createElement('div');
-            rowBreak.className = 'tally-row'; // Class for styling
-            tallyContainer.appendChild(rowBreak);
-        }
+    // Calculate the number of rows
+    const rowNum = Math.ceil(tallyCount / 10); // Get the current row index
+
+    // Check if we need to create a new row
+    let tallyRow = document.getElementById(`tally-row-${rowNum}`);
+    if (!tallyRow) {
+        tallyRow = document.createElement('div');
+        tallyRow.className = 'tally-row';
+        tallyRow.id = `tally-row-${rowNum}`;
+        tallyContainer.appendChild(tallyRow);
     }
-    const header = document.getElementById('header');
-    header.textContent = `Day ${tallyCount}`; // Set header to the static count value
+
+    // Choose a tally set (can be changed as needed)
+    const chosenSet = 'c';
+
+    // Create a tally link
+    const tallyLink = document.createElement('a');
+    tallyLink.className = 'tally-link';
+    tallyLink.href = `article.html?timestamp=${Date.now()}`; // Use current timestamp for the href
+
+    // Create a tally mark using the corresponding SVG
+    const tallyCountMark = 5 - (tallyCount % 5);
+
+    const tallyMark = document.createElement('img');
+    tallyMark.className = 'tally-mark';
+    if (tallyCountMark === 5) {
+        tallyMark.style.height = '18px';
+        tallyMark.style.marginTop = '7px';
+        tallyMark.style.marginLeft = '-65px';
+    }
+    tallyMark.src = `./svgs/${chosenSet}${tallyCountMark}.svg`;
+    tallyLink.appendChild(tallyMark);
+
+    // Append the tally link to the current row
+    tallyRow.appendChild(tallyLink);
+
+    // Add spacing every 5 tallies
+    if (tallyCount % 5 === 0 && tallyCount % 10 !== 0) {
+        const spacer = document.createElement('div');
+        spacer.className = 'tally-spacer';
+        tallyRow.appendChild(spacer);
+    }
 }
 
-
-document.addEventListener('DOMContentLoaded', () => {
-    initTagTree();
-    for (let i = 0; i < 999; i++) {
+function initTallyMarks(tallyCount) {
+    for (let i = 0; i < tallyCount; i++) {
         addTallyMark(i+1);
-    }    
-});
+    }
+}
 
-// const scriptUrl = 'https://script.google.com/macros/s/AKfycbwEDXlCUE759nSrM-CXwvpPY44T1dr9AB3H09GjF6plK8s9lBX14O4WZJu-rppo69yS/exec?callback=loadArticles';
-// loadJsonp(scriptUrl);
+const header = document.getElementById('header');
+header.textContent = "TEN TODAY"
+
+
+function updateClock(timezone = 'Asia/Tokyo') {
+    try {
+        const now = new Date();
+
+        // Format the current date and time for the specified timezone
+        const options = {
+            timeZone: timezone,
+            hour12: true, // Set to false for 24-hour format
+            // weekday: 'long', // e.g., 'Monday'
+            year: 'numeric', // e.g., 2024
+            month: 'numeric', // e.g., 'October'
+            day: 'numeric', // e.g., '17'
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        };
+
+        // Get the formatted date and time string
+        const formattedDateTime = now.toLocaleString('en-US', options);
+
+        // Display the date and time in the target element
+        const dateTimeElement = document.getElementById('date-time');
+        if (dateTimeElement) {
+            dateTimeElement.textContent = formattedDateTime;
+        } else {
+            console.warn('Element with ID "date-time" not found.');
+        }
+    } catch (error) {
+        console.error('Error updating clock:', error);
+    }
+}
+
+setInterval(() => updateClock('Asia/Tokyo'), 1000);
+
+initTagTree();
+ 
+initTallyMarks(tallyCount);
 
 // Fetch articles on page load
 window.onload = fetchArticles;

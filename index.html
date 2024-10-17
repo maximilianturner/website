@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ten Today</title>
+    <title>TEN TODAY</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="header-container">
+        <h1 id="header">TEN TODAY</h1>
+        <div class="header-info">
+            <div id="date-time"></div>
+            <div>Shiobara, JPN</div> <!-- Replace with your stock location -->
+        </div>
+    </div>
     <div class="homepage-container">
         <div class="sidebar">
             <div class="search-bar">
@@ -17,7 +24,6 @@
             </div>
         </div>
         <div class="articles-column">
-            <h1 id="header">Day 0</h1>
             <div id="article-container">
                 <p>Loading articles...</p>
             </div>
@@ -29,6 +35,19 @@
             </div>
         </div>
     </div>
+    <div class="video-container">
+        <img src="https://tentoday.net/stream.php" alt="Live Stream">
+    </div>
+    <!-- <div class="video-container">
+        <iframe width="560" 
+        height="315" 
+        src="http://camera.kkbtv.com:8080/nphMotionJpeg?resolution=640x480" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen></iframe>
+    </div> -->
 
     <!-- Modal for password entry -->
     <div id="loginModal" class="modal">
